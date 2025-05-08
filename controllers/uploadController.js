@@ -1,4 +1,5 @@
 const csvQueue = require("../jobs/queue");
+const path = require("path");
 
 const uploadCSV = async (req, res) => {
   if (!req.file) return res.status(400).json({ error: "File is required" });
@@ -32,8 +33,19 @@ const deleteJobStatus = async (req, res) => {
   });
 };
 
+const getCSVTemplate = async (req, res) => {
+  const filePath = path.join(__dirname, "../uploads/temple-csv-file.csv");
+  res.download(filePath, "template.csv", (err) => {
+    if (err) {
+      console.error("Error downloading the file:", err);
+      res.status(500).send("Error downloading the file.");
+    }
+  });
+};
+
 module.exports = {
   uploadCSV,
   getJobStatus,
   deleteJobStatus,
+  getCSVTemplate,
 };

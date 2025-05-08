@@ -32,7 +32,7 @@ module.exports = async function (job) {
           validate: true,
           ignoreDuplicates: false,
         });
-        success = rows.length;
+        success = totalRows - failed;
         resolve({ totalRows, success, failed, errors });
         // for (let row of rows) {
         // await db.query('INSERT INTO users (name, email, phone, age, city) VALUES (?, ?, ?, ?, ?)', [
